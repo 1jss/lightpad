@@ -22,7 +22,7 @@
 namespace LightPad.Frontend {
 
     public class AppItem : Gtk.EventBox {
-    
+
         private Gdk.Pixbuf icon;
         private LightPad.Frontend.Color prominent;
         private string label;
@@ -41,7 +41,7 @@ namespace LightPad.Frontend {
             this.set_visible_window (false);
             this.can_focus = true;
             // 30 is the padding between icon and label's height
-            this.set_size_request (icon_size * 3, icon_size + 30);
+            this.set_size_request (icon_size * 3, icon_size + 40);
 
             // VBox properties
             this.wrapper = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -53,7 +53,7 @@ namespace LightPad.Frontend {
             this.focus_in_event.connect ( () => { this.focus_in (); return true; } );
             this.focus_out_event.connect ( () => { this.focus_out (); return true; } );
         }
-        
+
         public void change_app (Gdk.Pixbuf new_icon, string new_name, string new_tooltip) {
             this.current_frame = 1;
 
@@ -70,7 +70,7 @@ namespace LightPad.Frontend {
             // Redraw
             this.wrapper.queue_draw ();
         }
-        
+
         public new void focus_in () {
             GLib.Timeout.add (((int)(1000/FPS)), () => {
                 if (this.current_frame >= RUN_LENGTH || !this.has_focus) {
@@ -83,7 +83,7 @@ namespace LightPad.Frontend {
                 return true;
             });
         }
-        
+
         public new void focus_out () {
             GLib.Timeout.add (((int)(1000/FPS)), () => {
                 if (this.current_frame >= RUN_LENGTH || this.has_focus) {
@@ -96,7 +96,7 @@ namespace LightPad.Frontend {
                 return true;
             });
         }
-        
+
         private bool draw_icon (Gtk.Widget widget, Cairo.Context ctx) {
             Gtk.Allocation size;
             widget.get_allocation (out size);
@@ -109,7 +109,7 @@ namespace LightPad.Frontend {
             // Truncate text
             Cairo.TextExtents extents;
             context.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            context.set_font_size (11.5);
+            context.set_font_size (20);
             LightPad.Frontend.Utilities.truncate_text (context, size, 10, this.label, out this.label, out extents);
 
             // Draw text shadow
@@ -152,7 +152,7 @@ namespace LightPad.Frontend {
                     context.fill ();
                 }
             }
-            
+
             return false;
         }
 

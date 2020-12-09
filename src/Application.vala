@@ -80,8 +80,10 @@ public class LightPadWindow : Widgets.CompositedWindow {
             this.icon_size = 32;
         } else if ((suggested_size >= 40 && suggested_size < 56) || (monitor_dimensions.height == 720)) {
             this.icon_size = 48;
-        } else if (suggested_size >= 56) {
+        } else if (suggested_size >= 56 && suggested_size < 96) {
             this.icon_size = 64;
+        } else if (suggested_size >= 96) {
+            this.icon_size = 128;
         }
         message ("The apps icon size is: %d", this.icon_size);
 
@@ -110,10 +112,10 @@ public class LightPadWindow : Widgets.CompositedWindow {
         bottom.pack_start (this.searchbar, false, true, screen_half);
 
         // Upstairs
-        container.pack_start (bottom, false, true, 32);
+        container.pack_start (bottom, false, true, 96);
 
         this.grid = new Gtk.Grid();
-        this.grid.set_row_spacing (30);
+        this.grid.set_row_spacing (90);
         this.grid.set_column_spacing (0);
         this.grid.set_halign (Gtk.Align.CENTER);
 
@@ -131,6 +133,9 @@ public class LightPadWindow : Widgets.CompositedWindow {
         } else if (monitor_dimensions.height == 1080) { // Full HD 1920x1080px
             this.grid_y = 9;
             this.grid_x = 7;
+        } else if (monitor_dimensions.height == 1800) { // Retina 2880x1800px
+            this.grid_y = 7;
+            this.grid_x = 5;
         } else { // Monitor 16:9
             this.grid_y = 6;
             this.grid_x = 5;
