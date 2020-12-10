@@ -107,16 +107,16 @@ public class LightPadWindow : Widgets.CompositedWindow {
         message ("Searchbar created!");
         this.searchbar.changed.connect (this.search);
 
-        // Lateral distance (120 are the pixels of the searchbar width)
-        int screen_half = (monitor_dimensions.width / 2) - 120;
+        // Lateral distance (240 are the pixels of the searchbar width)
+        int screen_half = (monitor_dimensions.width / 2) - 240;
         bottom.pack_start (this.searchbar, false, true, screen_half);
 
         // Upstairs
-        container.pack_start (bottom, false, true, 96);
+        container.pack_start (bottom, false, true, this.icon_size);
 
         this.grid = new Gtk.Grid();
-        this.grid.set_row_spacing (90);
-        this.grid.set_column_spacing (0);
+        this.grid.set_row_spacing ((int)(this.icon_size/2));
+        this.grid.set_column_spacing ((int)(this.icon_size/2));
         this.grid.set_halign (Gtk.Align.CENTER);
 
         // Make icon grid and populate
@@ -134,8 +134,8 @@ public class LightPadWindow : Widgets.CompositedWindow {
             this.grid_y = 9;
             this.grid_x = 7;
         } else if (monitor_dimensions.height == 1800) { // Retina 2880x1800px
-            this.grid_y = 7;
-            this.grid_x = 5;
+            this.grid_y = 6;
+            this.grid_x = 4;
         } else { // Monitor 16:9
             this.grid_y = 6;
             this.grid_x = 5;

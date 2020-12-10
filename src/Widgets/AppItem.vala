@@ -41,7 +41,7 @@ namespace LightPad.Frontend {
             this.set_visible_window (false);
             this.can_focus = true;
             // 30 is the padding between icon and label's height
-            this.set_size_request (icon_size * 3, icon_size + 40);
+            this.set_size_request (icon_size * 2, icon_size * 2 );
 
             // VBox properties
             this.wrapper = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -103,23 +103,23 @@ namespace LightPad.Frontend {
             var context = Gdk.cairo_create (widget.get_window ());
 
             // Draw icon
-            Gdk.cairo_set_source_pixbuf (context, this.icon, size.x + ((this.icon.width - size.width) / -2.0), size.y);
+            Gdk.cairo_set_source_pixbuf (context, this.icon, size.x + ((this.icon.width - size.width) / -2.0), size.y + (int)(this.icon_size / 3));
             context.paint ();
 
             // Truncate text
             Cairo.TextExtents extents;
             context.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            context.set_font_size (20);
-            LightPad.Frontend.Utilities.truncate_text (context, size, 10, this.label, out this.label, out extents);
+            context.set_font_size ((int)(this.icon_size * 0.18));
+            LightPad.Frontend.Utilities.truncate_text (context, size, 40, this.label, out this.label, out extents);
 
             // Draw text shadow
-            context.move_to ((size.x + size.width/2 - extents.width/2) + 1, (size.y + size.height - 10) + 1);
+            context.move_to ((size.x + size.width/2 - extents.width/2) + 1, (size.y + size.height - (int)(this.icon_size / 3)) + 1);
             context.set_source_rgba (0.0, 0.0, 0.0, 0.8);
             context.show_text (this.label);
 
             // Draw normal text
             context.set_source_rgba (1.0, 1.0, 1.0, 1.0);
-            context.move_to (size.x + size.width/2 - extents.width/2, size.y + size.height - 10);
+            context.move_to (size.x + size.width/2 - extents.width/2, size.y + size.height - (int)(this.icon_size / 3));
             context.show_text (this.label);
 
             return false;
@@ -139,16 +139,16 @@ namespace LightPad.Frontend {
 
             if (this.has_focus) {
                 double dark = 0.32;
-                var gradient = new Cairo.Pattern.rgba (this.prominent.R * dark, this.prominent.G * dark, this.prominent.B * dark, 0.8);
+                var gradient = new Cairo.Pattern.rgba (this.prominent.R * dark, this.prominent.G * dark, this.prominent.B * dark, 0.5);
                 context.set_source (gradient);
-                LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 10, 0.5, size);
+                LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 20, 0.5, size);
                 context.fill ();
             }  else  {
                 if (this.current_frame > 1) {
                     var gradient = new Cairo.Pattern.rgba (0.0, 0.0, 0.0, 0.0);
 
                     context.set_source (gradient);
-                    LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 10, 0.5, size);
+                    LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 20, 0.5, size);
                     context.fill ();
                 }
             }

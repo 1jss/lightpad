@@ -27,7 +27,7 @@ namespace LightPad.Frontend {
 
     class Utilities : GLib.Object {
 
-        public static void draw_rounded_rectangle(Cairo.Context context, double radius, 
+        public static void draw_rounded_rectangle(Cairo.Context context, double radius,
                                                   double offset, Gtk.Allocation size) {
             context.move_to (size.x + radius, size.y + offset);
             context.arc (size.x + size.width - radius - offset, size.y + radius + offset, radius, Math.PI * 1.5, Math.PI * 2);
@@ -35,7 +35,7 @@ namespace LightPad.Frontend {
             context.arc (size.x + radius + offset, size.y + size.height - radius - offset, radius, Math.PI * 0.5, Math.PI);
             context.arc (size.x + radius + offset, size.y + radius + offset, radius, Math.PI, Math.PI * 1.5);
         }
-        
+
         public static LightPad.Frontend.Color average_color (Gdk.Pixbuf source) {
             double rTotal = 0;
             double gTotal = 0;
@@ -59,7 +59,7 @@ namespace LightPad.Frontend {
                 rTotal += r * score;
                 gTotal += g * score;
                 bTotal += b * score;
-                
+
                 dataPtr += source.n_channels;
             }
 
