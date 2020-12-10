@@ -4,12 +4,20 @@ LightPad is a lightweight, simple and powerful application launcher. It is also 
 
 It is being developed for [Twister OS](https://raspbian-x.com/) and in collaboration with Ubuntu Budgie (and its [BudgieLightpad Applet](https://github.com/ubuntubudgie/budgie-lightpad-applet) for the system), a big thanks to [@fossfreedom](https://github.com/fossfreedom)
 
-This project was originally forked from LightPad, which was a fork from Slingshot from the elementary team:
+This project was originally forked from Slingshot from the elementary team:
 
   * [https://launchpad.net/slingshot](https://launchpad.net/slingshot)
 
 ## Screenshot
 ![Screenshot](https://raw.githubusercontent.com/libredeb/lightpad/master/screenshot.png)
+
+## Installation via PPA
+Only for Ubuntu based distros, open a terminal and run the next commands:
+```
+$ sudo add-apt-repository ppa:libredeb/lightpad
+$ sudo apt-get update
+$ sudo apt-get install com.github.libredeb.lightpad
+```
 
 ## Compilation
 
