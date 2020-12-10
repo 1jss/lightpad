@@ -23,6 +23,6 @@
  * Here are declared constants and others resources
  */
 namespace Resources {
-     public const string LIGHTPAD_CONFIG_DIR = "/." + Config.PROJECT_NAME;
+     public const string LIGHTPAD_CONFIG_DIR = "/.config/" + Config.PROJECT_NAME;
      public const string BLACKLIST_FILE = LIGHTPAD_CONFIG_DIR + "/blacklist";
 }

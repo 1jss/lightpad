@@ -22,7 +22,7 @@
 namespace LightPad.Frontend {
 
     public class AppItem : Gtk.EventBox {
-    
+
         private Gdk.Pixbuf icon;
         private LightPad.Frontend.Color prominent;
         private string label;
@@ -41,7 +41,7 @@ namespace LightPad.Frontend {
             this.set_visible_window (false);
             this.can_focus = true;
             // 30 is the padding between icon and label's height
-            this.set_size_request (icon_size * 3, icon_size + 30);
+            this.set_size_request (icon_size * 2, icon_size * 2 );
 
             // VBox properties
             this.wrapper = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -53,7 +53,7 @@ namespace LightPad.Frontend {
             this.focus_in_event.connect ( () => { this.focus_in (); return true; } );
             this.focus_out_event.connect ( () => { this.focus_out (); return true; } );
         }
-        
+
         public void change_app (Gdk.Pixbuf new_icon, string new_name, string new_tooltip) {
             this.current_frame = 1;
 
@@ -70,7 +70,7 @@ namespace LightPad.Frontend {
             // Redraw
             this.wrapper.queue_draw ();
         }
-        
+
         public new void focus_in () {
             GLib.Timeout.add (((int)(1000/FPS)), () => {
                 if (this.current_frame >= RUN_LENGTH || !this.has_focus) {
@@ -83,7 +83,7 @@ namespace LightPad.Frontend {
                 return true;
             });
         }
-        
+
         public new void focus_out () {
             GLib.Timeout.add (((int)(1000/FPS)), () => {
                 if (this.current_frame >= RUN_LENGTH || this.has_focus) {
@@ -96,30 +96,30 @@ namespace LightPad.Frontend {
                 return true;
             });
         }
-        
+
         private bool draw_icon (Gtk.Widget widget, Cairo.Context ctx) {
             Gtk.Allocation size;
             widget.get_allocation (out size);
             var context = Gdk.cairo_create (widget.get_window ());
 
             // Draw icon
-            Gdk.cairo_set_source_pixbuf (context, this.icon, size.x + ((this.icon.width - size.width) / -2.0), size.y);
+            Gdk.cairo_set_source_pixbuf (context, this.icon, size.x + ((this.icon.width - size.width) / -2.0), size.y + (int)(this.icon_size / 3));
             context.paint ();
 
             // Truncate text
             Cairo.TextExtents extents;
             context.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
-            context.set_font_size (11.5);
-            LightPad.Frontend.Utilities.truncate_text (context, size, 10, this.label, out this.label, out extents);
+            context.set_font_size ((int)(this.icon_size * 0.18));
+            LightPad.Frontend.Utilities.truncate_text (context, size, 40, this.label, out this.label, out extents);
 
             // Draw text shadow
-            context.move_to ((size.x + size.width/2 - extents.width/2) + 1, (size.y + size.height - 10) + 1);
+            context.move_to ((size.x + size.width/2 - extents.width/2) + 1, (size.y + size.height - (int)(this.icon_size / 3)) + 1);
             context.set_source_rgba (0.0, 0.0, 0.0, 0.8);
             context.show_text (this.label);
 
             // Draw normal text
             context.set_source_rgba (1.0, 1.0, 1.0, 1.0);
-            context.move_to (size.x + size.width/2 - extents.width/2, size.y + size.height - 10);
+            context.move_to (size.x + size.width/2 - extents.width/2, size.y + size.height - (int)(this.icon_size / 3));
             context.show_text (this.label);
 
             return false;
@@ -139,20 +139,20 @@ namespace LightPad.Frontend {
 
             if (this.has_focus) {
                 double dark = 0.32;
-                var gradient = new Cairo.Pattern.rgba (this.prominent.R * dark, this.prominent.G * dark, this.prominent.B * dark, 0.8);
+                var gradient = new Cairo.Pattern.rgba (this.prominent.R * dark, this.prominent.G * dark, this.prominent.B * dark, 0.5);
                 context.set_source (gradient);
-                LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 10, 0.5, size);
+                LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 20, 0.5, size);
                 context.fill ();
             }  else  {
                 if (this.current_frame > 1) {
                     var gradient = new Cairo.Pattern.rgba (0.0, 0.0, 0.0, 0.0);
 
                     context.set_source (gradient);
-                    LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 10, 0.5, size);
+                    LightPad.Frontend.Utilities.draw_rounded_rectangle (context, 20, 0.5, size);
                     context.fill ();
                 }
             }
-            
+
             return false;
         }
 

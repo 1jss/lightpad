@@ -24,9 +24,9 @@ namespace LightPad.Frontend {
     public class Searchbar : Gtk.Box {
 
         // Constants
-        const int WIDTH = 240;
-        const int HEIGHT = 26;
-        
+        const int WIDTH = 480;
+        const int HEIGHT = 52;
+
         // Properties
         private Gtk.TextBuffer buffer;
         public Gtk.Label label;
@@ -39,7 +39,7 @@ namespace LightPad.Frontend {
 
         // Signals
         public signal void changed ();
-        
+
         public string text {
             owned get {
                 string current_text = this.buffer.text;
@@ -75,13 +75,13 @@ namespace LightPad.Frontend {
 
             // Pack edit-find-symbolic icon
             var search_icon_wrapper = new Gtk.EventBox ();
-            this.search_icon = new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU);
+            this.search_icon = new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             search_icon_wrapper.set_visible_window (false);
             search_icon_wrapper.add (this.search_icon);
-            search_icon_wrapper.border_width = 4;
+            search_icon_wrapper.border_width = 6;
             search_icon_wrapper.button_release_event.connect ( () => { return true; } );
             wrapper.pack_start (search_icon_wrapper, false, true, 3);
-            
+
             // Label properties
             this.label = new Gtk.Label (this.buffer.text);
             // Mode to compress the text and add "..."
@@ -95,15 +95,15 @@ namespace LightPad.Frontend {
             // Clear icon
             var clear_icon_wrapper = new Gtk.EventBox ();
             clear_icon_wrapper.set_visible_window (false);
-            clear_icon_wrapper.border_width = 4;
-            this.clear_icon = new Gtk.Image.from_icon_name("edit-clear-symbolic", Gtk.IconSize.MENU);
+            clear_icon_wrapper.border_width = 6;
+            this.clear_icon = new Gtk.Image.from_icon_name("edit-clear-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             clear_icon_wrapper.add (this.clear_icon);
             clear_icon_wrapper.button_release_event.connect ( () => { this.hint (); return true; });
             clear_icon_wrapper.set_hexpand (true);
             clear_icon_wrapper.set_halign (Gtk.Align.END);
             wrapper.pack_end (clear_icon_wrapper, false, true, 3);
-            
+
             // Connect signals and callbacks
             this.buffer.changed.connect (on_changed);
             this.draw.connect (this.draw_background);
@@ -111,7 +111,7 @@ namespace LightPad.Frontend {
                 this.hint (); // hint it
             });
         }
-        
+
         public void hint () {
             this.buffer.text = "";
             this.label.label = this.hint_string;
@@ -122,7 +122,7 @@ namespace LightPad.Frontend {
             this.text = "";
             this.reset_font ();
         }
-        
+
         private void reset_font () {
             this.label.get_style_context ().remove_class ("search_greyout");
             this.label.get_style_context ().add_class ("search_normal");

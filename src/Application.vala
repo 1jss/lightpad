@@ -52,8 +52,12 @@ public class LightPadWindow : Widgets.CompositedWindow {
     public Gdk.Pixbuf image_pf;
 
     public LightPadWindow () {
-        Gdk.Screen default_screen = Gdk.Screen.get_default ();
-        monitor_dimensions = default_screen.get_display ().get_primary_monitor ().get_geometry ();
+        // There isn't always a primary monitor.
+        Gdk.Monitor monitor = get_display ().get_primary_monitor () ?? get_display ().get_monitor (0);
+        Gdk.Rectangle pixel_geo = monitor.get_geometry ();
+        // get_geometry() returns "device pixels", but we need "application pixels".
+        monitor_dimensions.width = pixel_geo.width / monitor.get_scale_factor ();
+        monitor_dimensions.height = pixel_geo.height / monitor.get_scale_factor ();
 
         // Window properties
         this.set_title ("LightPad");
@@ -76,8 +80,10 @@ public class LightPadWindow : Widgets.CompositedWindow {
             this.icon_size = 32;
         } else if ((suggested_size >= 40 && suggested_size < 56) || (monitor_dimensions.height == 720)) {
             this.icon_size = 48;
-        } else if (suggested_size >= 56) {
+        } else if (suggested_size >= 56 && suggested_size < 96) {
             this.icon_size = 64;
+        } else if (suggested_size >= 96) {
+            this.icon_size = 128;
         }
         message ("The apps icon size is: %d", this.icon_size);
 
@@ -101,16 +107,16 @@ public class LightPadWindow : Widgets.CompositedWindow {
         message ("Searchbar created!");
         this.searchbar.changed.connect (this.search);
 
-        // Lateral distance (120 are the pixels of the searchbar width)
-        int screen_half = (monitor_dimensions.width / 2) - 120;
+        // Lateral distance (240 are the pixels of the searchbar width)
+        int screen_half = (monitor_dimensions.width / 2) - 240;
         bottom.pack_start (this.searchbar, false, true, screen_half);
 
         // Upstairs
-        container.pack_start (bottom, false, true, 32);
+        container.pack_start (bottom, false, true, this.icon_size);
 
         this.grid = new Gtk.Grid();
-        this.grid.set_row_spacing (30);
-        this.grid.set_column_spacing (0);
+        this.grid.set_row_spacing ((int)(this.icon_size/2));
+        this.grid.set_column_spacing ((int)(this.icon_size/2));
         this.grid.set_halign (Gtk.Align.CENTER);
 
         // Make icon grid and populate
@@ -127,6 +133,9 @@ public class LightPadWindow : Widgets.CompositedWindow {
         } else if (monitor_dimensions.height == 1080) { // Full HD 1920x1080px
             this.grid_y = 9;
             this.grid_x = 7;
+        } else if (monitor_dimensions.height == 1800) { // Retina 2880x1800px
+            this.grid_y = 6;
+            this.grid_x = 4;
         } else { // Monitor 16:9
             this.grid_y = 6;
             this.grid_x = 5;
