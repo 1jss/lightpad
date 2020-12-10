@@ -1,4 +1,4 @@
-![LightPad](https://raw.githubusercontent.com/libredeb/lightpad/master/logo.png)
+![LightPad](https://raw.githubusercontent.com/1jss/lightpad/master/logo.png)
 
 LightPad is a lightweight, simple and powerful application launcher. It is also Wayland compatible.
 
@@ -9,7 +9,7 @@ This project was originally forked from Slingshot from the elementary team:
   * [https://launchpad.net/slingshot](https://launchpad.net/slingshot)
 
 ## Screenshot
-![Screenshot](https://raw.githubusercontent.com/libredeb/lightpad/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/1jss/lightpad/master/screenshot.png)
 
 ## Installation via PPA
 Only for Ubuntu based distros, open a terminal and run the next commands:
