@@ -1,6 +1,6 @@
 ![LightPad](https://raw.githubusercontent.com/1jss/lightpad/master/logo.png)
 
-LightPad is a lightweight, simple and powerful application launcher. It is also Wayland compatible.
+LightPad is a lightweight, simple and powerful application launcher.
 
 It is being developed for [Twister OS](https://raspbian-x.com/) and in collaboration with Ubuntu Budgie (and its [BudgieLightpad Applet](https://github.com/ubuntubudgie/budgie-lightpad-applet) for the system), a big thanks to [@fossfreedom](https://github.com/fossfreedom)
 
@@ -10,14 +10,6 @@ This project was originally forked from Slingshot from the elementary team:
 
 ## Screenshot
 ![Screenshot](https://raw.githubusercontent.com/1jss/lightpad/master/screenshot.png)
-
-## Installation via PPA
-Only for Ubuntu based distros, open a terminal and run the next commands:
-```
-$ sudo add-apt-repository ppa:libredeb/lightpad
-$ sudo apt-get update
-$ sudo apt-get install com.github.libredeb.lightpad
-```
 
 ## Compilation
 
@@ -66,15 +58,15 @@ Now assign it a shortcut key, such as CTRL+SPACE.
 
 ## Dynamic Background (optional feature)
 
-LighPad added a new feature, now you can use a custom background of your choice. You can add any wallpaper or image strictly under some of the following path/files and lightpad will use them (prioritizing the JPG format):
-> `$HOME/.lightpad/background.jpg`
+You can use a custom background of your choice. You can add any wallpaper or image strictly under some of the following path/files and lightpad will use them (prioritizing the JPG format):
+> `$HOME/.config/lightpad/background.jpg`
 
-> `$HOME/.lightpad/background.png`
+> `$HOME/.config/lightpad/background.png`
 
 ## Blacklist File (optional feature)
 
-Another new added functionality, is the ability to hide applications using a blacklist file. In the file:
-> `$HOME/.lightpad/blacklist`
+LightPad has the ability to hide applications from the app grid using a blacklist file. In the file:
+> `$HOME/.config/lightpad/blacklist`
 
 You must add line by line the full name of the binaries of the applications you want to hide in LightPad. For example:
 ```
