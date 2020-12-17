@@ -199,7 +199,7 @@ public class LightPadWindow : Widgets.CompositedWindow {
         }
 
         this.draw.connect (this.draw_background);
-        //this.focus_out_event.connect ( () => { this.destroy(); return true; } );
+        this.focus_out_event.connect ( () => { this.destroy(); return true; } );
 
     }
 
